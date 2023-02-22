@@ -17,6 +17,13 @@ def load_node(tree: bpy.types.NodeTree, data: dict):
     node.location = data["location"]
     node.hide = data["hidden"]
     node.name = data["name"]
+
+    for attr, value in data["attrs"].items():
+        setattr(node, attr, value)
+
+    for i, value in data["inputs"].items():
+        node.inputs[int(i)].default_value = value
+
     return node
 
 
