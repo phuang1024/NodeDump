@@ -15,6 +15,7 @@ COMMON_ATTRS = {
     "bl_height_min",
     "draw_buttons_ext",
     "select",
+    "interface",
     "bl_description",
     "bl_width_default",
     "outputs",
@@ -52,9 +53,9 @@ COMMON_ATTRS = {
 def dump_link(link: bpy.types.NodeLink, nodes: list[bpy.types.Node]):
     return {
         "from_ind": nodes.index(link.from_node),
-        "from_socket": link.from_socket.identifier,
+        "from_socket": link.from_socket.name,
         "to_ind": nodes.index(link.to_node),
-        "to_socket": link.to_socket.identifier,
+        "to_socket": link.to_socket.name,
     }
 
 
@@ -101,6 +102,7 @@ def dump_tree(tree: bpy.types.NodeTree):
 
 
 def dumps(tree: bpy.types.NodeTree, fmt: str = "json") -> str | bytes:
+    print(dump_tree(tree))
     if fmt == "json":
         return json.dumps(dump_tree(tree), indent=4)
     elif fmt == "pickle":
